@@ -10,5 +10,24 @@ Yes, I will eventually publish this on pypi.
 
 ## setup
 
-- Add `graphene_graphiql_explorer` to your `INSTALLED_APPS`. Make sure it comes after `graphene_django`.
-- Collect those static files.
+Add `graphene_graphiql_explorer` to your `INSTALLED_APPS`.
+
+Override the default graphene graphiql template in your `urls.py`:
+
+```python
+from graphene_django.views import GraphQLView
+
+urlpatterns = [
+    ...
+    url(
+        r"^graphql/$",
+        GraphQLView.as_view(
+            graphiql=True, template_name="graphene_graphiql_explorer/graphiql.html"
+        ),
+        name="graphql",
+    ),
+    ...
+]
+```
+
+Collect those static files.
