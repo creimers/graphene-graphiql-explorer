@@ -10,7 +10,6 @@ import "./App.css";
 
 function fetcher(params) {
   const url = `//${window.location.host}${window.location.pathname}`;
-  console.log("url", url);
   return fetch(url, {
     method: "POST",
     headers: {

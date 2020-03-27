@@ -15,7 +15,7 @@ const generatePastableScriptTags = scripts => {
     .filter(s => !s.endsWith(".map"))
     .forEach(s =>
       console.log(
-        `<script src="{% static graphene_graphiql_explorer/js/${s} %}"></script>`
+        `<script src="{% static 'graphene_graphiql_explorer/js/${s}' %}"></script>`
       )
     );
   console.log("\n");
