@@ -6,7 +6,7 @@
 
 ## Installation
 
-`pip install graphene_graphiql_explorer`.
+`pip install graphene_graphiql_explorer`
 
 ## Setup
 
@@ -31,3 +31,5 @@ urlpatterns = [
 ```
 
 Don't forget to collect those static files.
+
+Brought to you by [superservice international](https://superservice-international.com).
