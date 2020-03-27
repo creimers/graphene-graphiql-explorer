@@ -4,7 +4,7 @@
 
 ## installation
 
-`pip install https://github.com/creimers/graphene-graphiql-explorer/archive.master.zip`
+`pip install https://github.com/creimers/graphene-graphiql-explorer/archive/master.zip`
 
 Yes, I will eventually publish this on pypi.
 
