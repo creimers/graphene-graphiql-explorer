@@ -17,13 +17,13 @@ Override the default graphene graphiql template in your `urls.py`:
 ```python
 from graphene_django.views import GraphQLView
 
+GraphQLView.graphiql_template = "graphene_graphiql_explorer/graphiql.html"
+
 urlpatterns = [
     ...
     url(
         r"^graphql/$",
-        GraphQLView.as_view(
-            graphiql=True, graphiql_template="graphene_graphiql_explorer/graphiql.html"
-        ),
+        GraphQLView.as_view(graphiql=True),
         name="graphql",
     ),
     ...

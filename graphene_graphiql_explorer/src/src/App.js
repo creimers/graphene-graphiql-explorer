@@ -9,7 +9,7 @@ import "graphiql/graphiql.css";
 import "./App.css";
 
 function fetcher(params) {
-  return fetch(`//${window.location.host}/${window.location.pathname}`, {
+  return fetch(`//${window.location.host}${window.location.pathname}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
