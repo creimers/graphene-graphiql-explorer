@@ -22,7 +22,7 @@ urlpatterns = [
     url(
         r"^graphql/$",
         GraphQLView.as_view(
-            graphiql=True, template_name="graphene_graphiql_explorer/graphiql.html"
+            graphiql=True, graphiql_template="graphene_graphiql_explorer/graphiql.html"
         ),
         name="graphql",
     ),
