@@ -14,14 +14,14 @@ function fetcher(params) {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(params)
+    body: JSON.stringify(params),
   })
-    .then(function(response) {
+    .then(function (response) {
       return response.text();
     })
-    .then(function(responseBody) {
+    .then(function (responseBody) {
       try {
         return JSON.parse(responseBody);
       } catch (e) {
@@ -38,12 +38,12 @@ class App extends Component {
 
   componentDidMount() {
     fetcher({
-      query: getIntrospectionQuery()
-    }).then(result => {
+      query: getIntrospectionQuery(),
+    }).then((result) => {
       const editor = this._graphiql.getQueryEditor();
       editor.setOption("extraKeys", {
         ...(editor.options.extraKeys || {}),
-        "Shift-Alt-LeftClick": this._handleInspectOperation
+        "Shift-Alt-LeftClick": this._handleInspectOperation,
       });
 
       this.setState({ schema: buildClientSchema(result.data) });
@@ -63,12 +63,12 @@ class App extends Component {
     var end = { line: mousePos.line, ch: token.end };
     var relevantMousePos = {
       start: cm.indexFromPos(start),
-      end: cm.indexFromPos(end)
+      end: cm.indexFromPos(end),
     };
 
     var position = relevantMousePos;
 
-    var def = parsedQuery.definitions.find(definition => {
+    var def = parsedQuery.definitions.find((definition) => {
       if (!definition.loc) {
         console.log("Missing location information for definition");
         return false;
@@ -105,7 +105,7 @@ class App extends Component {
     el && el.scrollIntoView();
   };
 
-  _handleEditQuery = query => this.setState({ query });
+  _handleEditQuery = (query) => this.setState({ query });
 
   _handleToggleExplorer = () => {
     this.setState({ explorerIsOpen: !this.state.explorerIsOpen });
@@ -119,7 +119,7 @@ class App extends Component {
           schema={schema}
           query={query}
           onEdit={this._handleEditQuery}
-          onRunOperation={operationName =>
+          onRunOperation={(operationName) =>
             this._graphiql.handleRunQuery(operationName)
           }
           explorerIsOpen={this.state.explorerIsOpen}
@@ -128,11 +128,12 @@ class App extends Component {
           makeDefaultArg={makeDefaultArg}
         />
         <GraphiQL
-          ref={ref => (this._graphiql = ref)}
+          ref={(ref) => (this._graphiql = ref)}
           fetcher={fetcher}
           schema={schema}
           query={query}
           onEditQuery={this._handleEditQuery}
+          headerEditorEnabled={true}
         >
           <GraphiQL.Toolbar>
             <GraphiQL.Button
