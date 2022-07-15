@@ -2,7 +2,9 @@
 
 ![PyPI](https://img.shields.io/pypi/v/graphene_graphiql_explorer)
 
-😎 This django app adds the [ graphiql explorer ](https://github.com/OneGraph/graphiql-explorer) the graphene's graphiql view.
+😎 This django app adds the [ graphiql explorer ](https://github.com/OneGraph/graphiql-explorer) to graphene's graphiql view.
+
+The graphiql version used is 1.9.10.
 
 ## Installation
 
