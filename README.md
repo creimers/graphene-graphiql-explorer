@@ -2,7 +2,7 @@
 
 ![PyPI](https://img.shields.io/pypi/v/graphene_graphiql_explorer)
 
-😎This django app adds the [ graphiql explorer ](https://github.com/OneGraph/graphiql-explorer) the graphene's graphiql view.
+😎 This django app adds the [ graphiql explorer ](https://github.com/OneGraph/graphiql-explorer) the graphene's graphiql view.
 
 ## Installation
 
@@ -30,6 +30,6 @@ urlpatterns = [
 ]
 ```
 
-Don't forget to collect those static files.
+**Don't forget to collect those static files.**
 
 Brought to you by [superservice international](https://superservice-international.com).

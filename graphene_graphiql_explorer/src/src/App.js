@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import GraphiQL from "graphiql";
-import { StorageAPI } from '@graphiql/toolkit';
+import { StorageAPI } from "@graphiql/toolkit";
 import GraphiQLExplorer from "graphiql-explorer";
 import { buildClientSchema, getIntrospectionQuery, parse } from "graphql";
 
@@ -10,17 +10,17 @@ import "graphiql/graphiql.css";
 import "./App.css";
 
 function fetcher(params, opts) {
-  if (typeof opts === 'undefined') {
+  if (typeof opts === "undefined") {
     opts = {};
   }
   var headers = opts.headers || {};
-  headers['Accept'] = headers['Accept'] || 'application/json';
-  headers['Content-Type'] = headers['Content-Type'] || 'application/json';
+  headers["Accept"] = headers["Accept"] || "application/json";
+  headers["Content-Type"] = headers["Content-Type"] || "application/json";
   const url = `//${window.location.host}${window.location.pathname}`;
   return fetch(url, {
     method: "POST",
     headers: headers,
-    body: JSON.stringify(params)
+    body: JSON.stringify(params),
   })
     .then(function (response) {
       return response.text();
@@ -34,14 +34,12 @@ function fetcher(params, opts) {
     });
 }
 
-
 const STORAGE_KEYS = {
-  SAVE_HEADERS_TEXT: 'saveHeadersText',
-  HEADERS_TEXT: 'headersText',
+  SAVE_HEADERS_TEXT: "saveHeadersText",
+  HEADERS_TEXT: "headersText",
 };
 
-
-const isValidJSON = json => {
+const isValidJSON = (json) => {
   try {
     JSON.parse(json);
     return true;
@@ -50,8 +48,6 @@ const isValidJSON = json => {
   }
 };
 
-
-
 class App extends Component {
   _storage = new StorageAPI();
 
@@ -59,24 +55,23 @@ class App extends Component {
 
   state = {
     schema: null,
-    query: '',
+    query: "",
     explorerIsOpen: true,
     showHeaderEditor: false,
-    saveHeadersText: this._storage.get(STORAGE_KEYS.SAVE_HEADERS_TEXT) === 'true',
-    headersText: this._storage.get(STORAGE_KEYS.HEADERS_TEXT) || '{\n"Authorization": null\n}\n',
+    saveHeadersText:
+      this._storage.get(STORAGE_KEYS.SAVE_HEADERS_TEXT) === "true",
+    headersText: this._storage.get(STORAGE_KEYS.HEADERS_TEXT) || "",
     headersTextValid: true,
   };
 
-
-
   componentDidMount() {
     fetcher({
-      query: getIntrospectionQuery()
-    }).then(result => {
+      query: getIntrospectionQuery(),
+    }).then((result) => {
       const editor = this._graphiql.getQueryEditor();
       editor.setOption("extraKeys", {
         ...(editor.options.extraKeys || {}),
-        "Shift-Alt-LeftClick": this._handleInspectOperation
+        "Shift-Alt-LeftClick": this._handleInspectOperation,
       });
 
       this.setState({ schema: buildClientSchema(result.data) });
@@ -96,12 +91,12 @@ class App extends Component {
     var end = { line: mousePos.line, ch: token.end };
     var relevantMousePos = {
       start: cm.indexFromPos(start),
-      end: cm.indexFromPos(end)
+      end: cm.indexFromPos(end),
     };
 
     var position = relevantMousePos;
 
-    var def = parsedQuery.definitions.find(definition => {
+    var def = parsedQuery.definitions.find((definition) => {
       if (!definition.loc) {
         console.log("Missing location information for definition");
         return false;
@@ -122,15 +117,15 @@ class App extends Component {
       def.kind === "OperationDefinition"
         ? def.operation
         : def.kind === "FragmentDefinition"
-          ? "fragment"
-          : "unknown";
+        ? "fragment"
+        : "unknown";
 
     var operationName =
       def.kind === "OperationDefinition" && !!def.name
         ? def.name.value
         : def.kind === "FragmentDefinition" && !!def.name
-          ? def.name.value
-          : "unknown";
+        ? def.name.value
+        : "unknown";
 
     var selector = `.graphiql-explorer-root #${operationKind}-${operationName}`;
 
@@ -138,9 +133,7 @@ class App extends Component {
     el && el.scrollIntoView();
   };
 
-
-
-  _handleEditQuery = query => this.setState({ query });
+  _handleEditQuery = (query) => this.setState({ query });
 
   _handleToggleExplorer = () => {
     this.setState({ explorerIsOpen: !this.state.explorerIsOpen });
@@ -148,21 +141,21 @@ class App extends Component {
 
   handleToggleSaveHeaders = () => {
     this.setState(
-      oldState => ({ saveHeadersText: !oldState.saveHeadersText }),
+      (oldState) => ({ saveHeadersText: !oldState.saveHeadersText }),
       () => {
         this._storage.set(
           STORAGE_KEYS.SAVE_HEADERS_TEXT,
-          JSON.stringify(this.state.saveHeadersText),
+          JSON.stringify(this.state.saveHeadersText)
         );
         this._storage.set(
           STORAGE_KEYS.HEADERS_TEXT,
-          this.state.saveHeadersText ? this.state.headersText : '',
+          this.state.saveHeadersText ? this.state.headersText : ""
         );
-      },
+      }
     );
   };
 
-  handleEditHeaders = headersText => {
+  handleEditHeaders = (headersText) => {
     this.setState(
       {
         headersText,
@@ -176,7 +169,7 @@ class App extends Component {
           // Reconnect to websocket with new headers
           this.restartSubscriptionsClient();
         }
-      },
+      }
     );
   };
 
@@ -188,7 +181,7 @@ class App extends Component {
           schema={schema}
           query={query}
           onEdit={this._handleEditQuery}
-          onRunOperation={operationName =>
+          onRunOperation={(operationName) =>
             this._graphiql.handleRunQuery(operationName)
           }
           explorerIsOpen={this.state.explorerIsOpen}
@@ -197,12 +190,12 @@ class App extends Component {
           makeDefaultArg={makeDefaultArg}
         />
         <GraphiQL
-          ref={ref => (this._graphiql = ref)}
+          ref={(ref) => (this._graphiql = ref)}
           fetcher={fetcher}
           schema={schema}
           query={query}
           onEditQuery={this._handleEditQuery}
-          headerEditorEnabled={window.GRAPHENE_SETTINGS.graphiqlHeaderEditorEnabled}
+          headerEditorEnabled={true}
           headers={this.state.headersText}
           onEditHeaders={this.handleEditHeaders}
         >
@@ -223,8 +216,8 @@ class App extends Component {
               title="Toggle Explorer"
             />
             <GraphiQL.Button
-              label={'Headers ' + (this.state.saveHeadersText ? 'SAVED' : 'unsaved')}
-              title="Should we persist the headers to localStorage? Header editor is next to variable editor at the bottom."
+              label={"Save headers " + (this.state.saveHeadersText ? "✅" : "")}
+              title="Should the headers be saved to localStorage?"
               onClick={this.handleToggleSaveHeaders}
             />
           </GraphiQL.Toolbar>
