@@ -9,6 +9,8 @@ import { makeDefaultArg, getDefaultScalarArgValue } from "./CustomArgs";
 import "graphiql/graphiql.css";
 import "./App.css";
 
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
 function fetcher(params, opts) {
   if (typeof opts === "undefined") {
     opts = {};
@@ -16,6 +18,7 @@ function fetcher(params, opts) {
   var headers = opts.headers || {};
   headers["Accept"] = headers["Accept"] || "application/json";
   headers["Content-Type"] = headers["Content-Type"] || "application/json";
+  headers["X-CSRFToken"] = headers["X-CSRFToken"] || csrftoken;
   const url = `//${window.location.host}${window.location.pathname}`;
   return fetch(url, {
     method: "POST",
