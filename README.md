@@ -35,3 +35,13 @@ urlpatterns = [
 **Don't forget to collect those static files.**
 
 Brought to you by [superservice international](https://superservice-international.com).
+
+## Development
+
+### Release
+
+`python -m build`
+
+`python -m twine upload -r testpypi dist/*`
+
+`python -m twine check dist/*`
