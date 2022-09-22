@@ -1,6 +1,6 @@
 # graphene graphiql explorer
 
-![PyPI](https://img.shields.io/pypi/v/graphene_graphiql_explorer)
+[![PyPI](https://img.shields.io/pypi/v/graphene_graphiql_explorer)](https://pypi.org/project/graphene-graphiql-explorer/)
 
 😎 This django app adds the [ graphiql explorer ](https://github.com/OneGraph/graphiql-explorer) to graphene's graphiql view.
 
